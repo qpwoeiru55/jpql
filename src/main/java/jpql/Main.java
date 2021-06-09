@@ -1,5 +1,7 @@
 package jpql;
 
+import org.h2.command.dml.Update;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -69,14 +71,17 @@ public class Main {
 //                    .getResultList();
 //            System.out.println(result);
 ///////////////////////////////////////////////
-            String query = "select m from Member m join fetch m.team";
-            List<Member> result = em.createQuery(query, Member.class)
-                    .getResultList();
-
-            for(Member m : result){
-                System.out.println(m.getUsername() + m.getTeam().getName());
-            }
-
+//            String query = "select m from Member m join fetch m.team";
+//            List<Member> result = em.createQuery(query, Member.class)
+//                    .getResultList();
+//
+//            for(Member m : result){
+//                System.out.println(m.getUsername() + m.getTeam().getName());
+//            }
+///////////////////////////////////////////////
+            int rusultCnt = em.createQuery("update Member m set m.age = 20")
+                    .executeUpdate();
+            System.out.println(rusultCnt);
             tx.commit();
         }catch(Exception e){
             tx.rollback();
